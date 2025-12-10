@@ -16,16 +16,16 @@ const io = new Server(server, {
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-app.use(cors({
-  origin: 'http://localhost:5173' // This should match your frontend URL
-}));
-
 app.get('/', (req, res) => {
   res.send('ok')
 });
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+
+  socket.on('disconnect', () => {
+      console.log('a user disconnected');
+  })
 });
 
 server.listen(3000, () => {
