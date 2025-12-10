@@ -1,18 +1,14 @@
 import { useContext } from 'react'
-import './App.css'
-import { useEffect } from 'react'
-import { RoomContext } from './context/RoomContext'
+import '../App.css'
+import { RoomContext } from '../context/RoomContext'
 
 const WS = 'http://localhost:3000'
 
-function App() {
+function Home() {
   const { ws } = useContext(RoomContext)
   const joinRoom = () => {
-    ws.emit('join-room')
+    ws.emit('create-room')
   }
-  useEffect(() => {
-
-  }, [])
 
   return (
     <>
@@ -21,4 +17,4 @@ function App() {
   )
 }
 
-export default App
+export default Home

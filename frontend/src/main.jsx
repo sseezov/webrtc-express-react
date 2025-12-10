@@ -1,13 +1,20 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css'
-import App from './App.jsx'
 import { RoomProvider } from './context/RoomContext.jsx'
+import Home from './pages/Home.jsx';
+import Room from './pages/Room.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RoomProvider>
-      <App />
-    </RoomProvider>
+    <BrowserRouter>
+      <RoomProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/room/:id" element={<Room />} />
+        </Routes>
+      </RoomProvider>
+    </BrowserRouter>
   </StrictMode>,
 )
