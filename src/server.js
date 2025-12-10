@@ -22,7 +22,9 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('a user connected');
-
+  socket.on('join-room', ()=>{
+    console.log('join');
+  })
   socket.on('disconnect', () => {
       console.log('a user disconnected');
   })

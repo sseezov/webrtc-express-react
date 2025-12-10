@@ -1,17 +1,22 @@
-import socketIO from 'socket.io-client'
+import { useContext } from 'react'
 import './App.css'
 import { useEffect } from 'react'
+import { RoomContext } from './context/RoomContext'
 
 const WS = 'http://localhost:3000'
 
 function App() {
-  useEffect(()=>{
-    socketIO(WS)
+  const { ws } = useContext(RoomContext)
+  const joinRoom = () => {
+    ws.emit('join-room')
+  }
+  useEffect(() => {
+
   }, [])
 
   return (
     <>
-s
+      <button onClick={()=>joinRoom()}>Start meeting</button>
     </>
   )
 }
