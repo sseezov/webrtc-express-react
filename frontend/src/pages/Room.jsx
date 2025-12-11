@@ -7,9 +7,9 @@ import { useEffect } from 'react';
 
 const Room = () => {
   const { id } = useParams()
-  const { ws } = useContext(RoomContext);
+  const { ws, me } = useContext(RoomContext);
   useEffect(() => {
-    ws.emit('join-room', { roomId: id })
+    if (me) ws.emit('join-room', { roomId: id, peerId: me._id })
   }, [id])
 
 
