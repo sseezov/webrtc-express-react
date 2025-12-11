@@ -14,6 +14,7 @@ const ws = socketIO(WS);
 
 export const RoomProvider = ({ children }) => {
   const [me, setMe] = useState(null);
+  const [stream, setStream] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +22,15 @@ export const RoomProvider = ({ children }) => {
 
     const peer = new Peer(meId);
     setMe(peer);
+
+    try {
+      navigator.mediaDevices
+        .getUserMedia({ video: true, audio: true })
+        .then((stream) => setStream(stream))
+    } catch (error) {
+      console.log(error);
+    }
+
     ws.on('room-created', ({ roomId }) => {
       navigate(`/room/${roomId}`)
     })
@@ -29,5 +39,5 @@ export const RoomProvider = ({ children }) => {
     })
   }, [])
 
-  return <RoomContext.Provider value={{ ws, me }}>{children}</RoomContext.Provider>
+  return <RoomContext.Provider value={{ ws, me, stream }}>{children}</RoomContext.Provider>
 }
