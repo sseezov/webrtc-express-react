@@ -39,5 +39,16 @@ export const RoomProvider = ({ children }) => {
     })
   }, [])
 
+  useEffect(() => {
+    if (!me || !stream) return;
+    ws.on('user-joined', ({peerId})=>{
+      const call = me.call(peerId, stream)
+    })
+
+    me.on('call', (call)=> {
+      call.answer(stream)
+    })
+  }, [me, stream])
+
   return <RoomContext.Provider value={{ ws, me, stream }}>{children}</RoomContext.Provider>
 }
